@@ -1,6 +1,6 @@
 const Footer = () => {
   return (
-    <footer className="bg-gray-900 text-white text-center py-6">
+    <footer className="bg-indigo-950 text-white text-center py-6">
 
       <h3 className="font-semibold text-lg">
         BSF-Nutrifeed

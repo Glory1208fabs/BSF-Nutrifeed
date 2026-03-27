@@ -8,7 +8,7 @@ const Hero = () => {
             Sustainable Feed Production Made Simple
           </h2>
 
-          <p className="text-gray-600 mb-6">
+          <p className="text-white-600 mb-6">
             Track poultry feed production, monitor farm growth,
             and optimize feed management with BSF-Nutrifeed.
           </p>
@@ -18,7 +18,7 @@ const Hero = () => {
               Get Started
             </button>
 
-            <button className="border border-green-600 text-green-600 px-6 py-3 rounded-lg">
+            <button className=" border-green-600 text-green-600 px-6 py-3 rounded-lg">
               Learn More
             </button>
           </div>

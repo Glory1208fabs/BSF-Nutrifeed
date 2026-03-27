@@ -1,5 +1,5 @@
-import Navbar from "../components/Navbar";
-import Hero from "../components/Hero";
+import Navbar from "../components/Navbar/Navbar";
+import Hero from "../components/Hero/Hero";
 import Benefits from "../components/Benefits";
 import HowItWorks from "../components/Howitworks";
 import CTA from "../components/CTA";
