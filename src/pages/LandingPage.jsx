@@ -1,8 +1,7 @@
 import Navbar from "../components/Navbar/Navbar";
 import Hero from "../components/Hero/Hero";
 import Benefits from "../components/Benefits";
-import HowItWorks from '../components/HowItWorks.jsx'
-<components />
+import HowItWorks from "../components/HowitWorks";
 import CTA from "../components/CTA";
 import Footer from "../components/Footer";
 
