@@ -1,55 +1,73 @@
 import { useState } from "react";
-import { useNavigate, Link } from "react-router-dom";
-import { loginUser } from "../utils/auth";
+import { useNavigate } from "react-router-dom";
+import { loginUser } from "../api/authApi";
+import { Link } from "react-router-dom";
 
 const Login = () => {
-  const [form, setForm] = useState({ email: "", password: "" });
   const navigate = useNavigate();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
-  const handleSubmit = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
 
-    const success = loginUser(form.email, form.password);
+    try {
+      const user = await loginUser(email, password);
 
-    if (success) {
+      // Save user
+      localStorage.setItem("user", JSON.stringify(user));
+
       navigate("/dashboard");
-    } else {
-      alert("Invalid credentials");
+
+    } catch (error) {
+      alert(error.message);
     }
   };
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <form
-        onSubmit={handleSubmit}
-        className="bg-white p-8 rounded-xl shadow-md w-full max-w-md"
-      >
-        <h2 className="text-2xl font-bold mb-6 text-center">
-          Login
+
+      <div className="bg-white p-8 rounded-xl shadow-md w-full max-w-md">
+
+        <h2 className="text-2xl font-bold text-center mb-6">
+          Login to BSF-Nutrifeed
         </h2>
 
-        <input
-          type="email"
-          placeholder="Email"
-          className="w-full mb-4 p-3 border rounded-lg"
-          onChange={(e) => setForm({ ...form, email: e.target.value })}
-        />
+        <form onSubmit={handleLogin} className="space-y-4">
 
-        <input
-          type="password"
-          placeholder="Password"
-          className="w-full mb-4 p-3 border rounded-lg"
-          onChange={(e) => setForm({ ...form, password: e.target.value })}
-        />
+          <input
+            type="email"
+            placeholder="Email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            className="w-full border p-3 rounded-lg"
+          />
 
-        <button className="w-full bg-green-600 text-white p-3 rounded-lg">
-          Login
-        </button>
+          <input
+            type="password"
+            placeholder="Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            className="w-full border p-3 rounded-lg"
+          />
 
-        <p className="text-sm mt-4 text-center">
-          No account? <Link to="/signup">Sign up</Link>
+          <button
+            className="w-full bg-green-600 text-white p-3 rounded-lg hover:bg-green-700"
+          >
+            Login
+          </button>
+
+        </form>
+
+        <p className="text-center mt-4 text-sm">
+          Don't have an account?{" "}
+          <Link to="/signup" className="text-green-600">
+            Sign up
+          </Link>
         </p>
-      </form>
+
+      </div>
+
     </div>
   );
 };

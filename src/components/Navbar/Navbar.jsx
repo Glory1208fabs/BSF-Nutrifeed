@@ -1,31 +1,37 @@
-import { Link } from "react-router-dom";
-import React from 'react'
-import './Navbar.css'
+import React, { useState } from "react";
+import { Link, NavLink } from "react-router-dom";
+import './Navbar.css';
 
 const Navbar = () => {
+  const [isOpen, setIsOpen] = useState(false);
+
+  const toggleMenu = () => setIsOpen(!isOpen);
+
   return (
-    <nav className='container'>
-      <h1 className='logo'>
-        BSF-Nutrifeed
-      </h1>
+    <nav className="navbar">
+      <div className="container">
+        <h1 className="logo">BSF-Nutrifeed</h1>
 
-      <div className='nav-links'>
-        <ul className="nav-list">
-        <li><Link to="/">Home</Link></li>
-        <li><Link to="HowItWorks">How it works</Link></li>
-        <li><Link to="/dashboard">Dashboard</Link></li>
-        <li><Link to="/login">
-          <button className="w-full sm:w-auto bg-green-600 text-white px-6 py-3 rounded-lg">Login</button>
-        </Link></li>
-       </ul>
+        {/* Hamburger Icon */}
+        <div className="hamburger" onClick={toggleMenu}>
+          <span className={isOpen ? "bar rotate1" : "bar"}></span>
+          <span className={isOpen ? "bar fade" : "bar"}></span>
+          <span className={isOpen ? "bar rotate2" : "bar"}></span>
+        </div>
+
+        <ul className={isOpen ? "nav-links open" : "nav-links"}>
+          <li><NavLink to="/" className={({isActive}) => isActive ? "active" : ""}>Home</NavLink></li>
+          <li><NavLink to="/dashboard" className={({isActive}) => isActive ? "active" : ""}>Dashboard</NavLink></li>
+          <li>
+            <NavLink to="/login" className="login">Login</NavLink>
+          </li>
+          <li>
+            <NavLink to="/signup" id="get-started" className="btn btn-primary">Get Started</NavLink>
+          </li>
+        </ul>
       </div>
-
-      <Link to="/signup">
-              <button className="w-full sm:w-auto bg-green-600 text-white px-6 py-3 rounded-lg hover:bg-green-700 transition">
-                Get Started
-              </button></Link>
     </nav>
-  )
-}
+  );
+};
 
-export default Navbar
+export default Navbar;
