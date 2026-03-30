@@ -1,8 +1,11 @@
 import { useState } from "react";
 import { signupUser } from "../api/authApi";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Signup = () => {
+
+  const navigate = useNavigate();
+
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -17,11 +20,20 @@ const Signup = () => {
     };
 
     try {
+
       const response = await signupUser(userData);
-      alert("Account created");
-      console.log(response);
+
+      // Save user
+      localStorage.setItem("user", JSON.stringify(response));
+
+      alert("Account created successfully");
+
+      // Redirect to dashboard
+      navigate("/dashboard");
+
     } catch (error) {
       alert("Error creating account");
+      console.error(error);
     }
   };
 
@@ -34,27 +46,37 @@ const Signup = () => {
           Create an Account
         </h2>
 
-        <form className="space-y-4">
+        <form onSubmit={handleSignup} className="space-y-4">
 
           <input
             type="text"
             placeholder="Full Name"
+            value={name}
+            onChange={(e)=>setName(e.target.value)}
             className="w-full border p-3 rounded-lg"
+            required
           />
 
           <input
             type="email"
             placeholder="Email"
+            value={email}
+            onChange={(e)=>setEmail(e.target.value)}
             className="w-full border p-3 rounded-lg"
+            required
           />
 
           <input
             type="password"
             placeholder="Password"
+            value={password}
+            onChange={(e)=>setPassword(e.target.value)}
             className="w-full border p-3 rounded-lg"
+            required
           />
 
           <button
+            type="submit"
             className="w-full bg-green-600 text-white p-3 rounded-lg hover:bg-green-700"
           >
             Sign Up
